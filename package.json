@@ -36,13 +36,17 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended",
+      "eslint:recommended"
+    ],
+    "plugins": [
       "@vue/prettier"
     ],
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "vue/comment-directive": 0
+    }
   },
   "browserslist": [
     "> 1%",

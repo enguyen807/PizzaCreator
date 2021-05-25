@@ -1,11 +1,8 @@
 module.exports = {
-  rules: { "prettier/prettier": ["error", { endOfLine: "auto" }] },
-  parser: "babel-eslint",
+  extends: ["plugin:vue/recommended"],
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 2018,
+    parser: "babel-eslint",
+    ecmaVersion: 2020,
     sourceType: "module",
   },
 };
