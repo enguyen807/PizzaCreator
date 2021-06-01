@@ -1,0 +1,83 @@
+<template>
+  <form action="">
+    <h3>Add new pizza:</h3>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        id="name"
+        v-model="newPizza.name"
+        placeholder="Eg. Margherita"
+      />
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        type="text"
+        id="description"
+        v-model="newPizza.description"
+        rows="5"
+        placeholder="Eg. A delicious tomato based pizza topped with mozzarella"
+      ></textarea>
+    </div>
+    <PizzaOption option-name="Option 1" @option-input="handleOptionInput" />
+    <PizzaOption option-name="Option 2" @option-input="handleOptionInput" />
+    <button type="button" class="btn_green" @click="handleNewPizzaForm">
+      Add
+    </button>
+    {{ newPizza }}
+  </form>
+</template>
+
+<script>
+import PizzaOption from "@/components/PizzaForm/PizzaOption.vue";
+
+export default {
+  name: "addNewPizza",
+  components: {
+    PizzaOption,
+  },
+  data() {
+    return {
+      newPizza: {
+        name: "",
+        description: "",
+        options: [],
+      },
+    };
+  },
+  methods: {
+    handleOptionInput(event) {
+      this.newPizza.options.push(event);
+    },
+    handleNewPizzaForm() {},
+  },
+};
+</script>
+
+<style>
+.form-group {
+  margin: 10px 0;
+}
+
+label {
+  display: block;
+  margin: 0 0 10px 0;
+}
+
+input,
+textarea {
+  width: 50%;
+  padding: 5px;
+  box-sizing: border-box;
+  background: rgb(254, 254, 252);
+  border: solid 1px #f79e38;
+}
+
+button.btn_green {
+  background: rgb(63, 145, 63);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+</style>
