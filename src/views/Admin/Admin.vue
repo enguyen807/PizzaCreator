@@ -19,7 +19,9 @@
         <tbody>
           <tr>
             <td>Margherita</td>
-            <td><button type="button" class="btn_red">&times;</button></td>
+            <td>
+              <button type="button" class="btn_red">&times;</button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -100,12 +102,5 @@ table {
 
 .order_number button {
   margin: 0 10px;
-}
-
-.btn_red {
-  background: #f44336;
-  color: white;
-  padding: 5px 15px;
-  border-radius: 5px;
 }
 </style>

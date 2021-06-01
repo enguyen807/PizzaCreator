@@ -6,25 +6,30 @@
     <div class="form-group">
       <label for="size">Size(")</label>
       <input
-        type="number"
         id="size"
         ref="size"
         v-model.number.lazy="option.size"
-        placeholder='Eg. 9" or 12"'
-      />
+        type="number"
+        placeholder="Eg. 9&quot; or 12&quot;"
+      >
     </div>
     <div class="form-group">
       <label for="price">Price</label>
       <input
-        type="number"
         id="price"
         ref="price"
         v-model.lazy="option.price"
+        type="number"
         placeholder="Eg. 10.99"
         step=".01"
-      />
+      >
     </div>
-    <button type="button" class="btn_green">Add Option</button>
+    <button
+      type="button"
+      class="btn_green"
+    >
+      Add Option
+    </button>
   </fieldset>
 </template>
 

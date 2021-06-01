@@ -3,11 +3,11 @@
     <h4>This is an contact page</h4>
     <address>
       <strong>Pizza Planet</strong>
-      <br />Address 1 <br />Address 1 <br />Phone (123) 456-7890
+      <br>Address 1 <br>Address 1 <br>Phone (123) 456-7890
     </address>
     <address>
       <strong>Email:</strong>
-      <br />
+      <br>
       <p>contact@pizzaplanet.com</p>
     </address>
   </div>

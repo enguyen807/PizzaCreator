@@ -1,13 +1,24 @@
 <template>
-  <div>
-    <BaseHeader></BaseHeader>
-    <slot></slot>
-    <div class="info_block_wrapper">
-      <router-view name="ordering-guide"></router-view>
-      <router-view name="delivery"></router-view>
-      <router-view name="history"></router-view>
-    </div>
-  </div>
+  <v-app>
+    <BaseHeader />
+    <v-main>
+      <slot />
+      <div class="info_block_wrapper">
+        <router-view name="ordering-guide" />
+        <router-view name="delivery" />
+        <router-view name="history" />
+      </div>
+    </v-main>
+    <v-footer padless>
+      <v-col class="text-center" cols="12">
+        Icons made by
+        <a href="https://www.freepik.com" title="Freepik">Freepik</a> from
+        <a href="https://www.flaticon.com/" title="Flaticon"
+          >www.flaticon.com</a
+        ></v-col
+      >
+    </v-footer>
+  </v-app>
 </template>
 
 <script>

@@ -8,14 +8,17 @@
         quam aspernatur quas enim similique quibusdam quia alias soluta cum
         odio? Asperiores, architecto.
       </p>
-      <img src="../assets/images/planet.png" alt="planet image" />
+      <img
+        src="../assets/images/planet.png"
+        alt="planet image"
+      >
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "history",
+  name: "History",
 };
 </script>
 

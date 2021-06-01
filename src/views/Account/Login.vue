@@ -7,9 +7,9 @@
         <label for="email" class="title">Email Address</label>
         <label for="email" class="subtitle">Eg. example@domain.com</label>
         <input
-          type="email"
           id="email"
           v-model="email"
+          type="email"
           autocomplete="username"
         />
       </div>
@@ -19,9 +19,9 @@
           >Must have at least 6 characters</label
         >
         <input
-          type="password"
           id="password"
           v-model="password"
+          type="password"
           autocomplete="current-password"
         />
       </div>
@@ -36,7 +36,7 @@
 import { firebaseAuth, dbUserRef } from "@/firebase";
 
 export default {
-  name: "login",
+  name: "Login",
   data() {
     return {
       email: "",
@@ -87,7 +87,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .title {
   margin: 0px;
 }

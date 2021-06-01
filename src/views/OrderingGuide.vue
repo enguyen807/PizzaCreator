@@ -8,14 +8,17 @@
         quam aspernatur quas enim similique quibusdam quia alias soluta cum
         odio? Asperiores, architecto.
       </p>
-      <img src="../assets/images/order.png" alt="order image" />
+      <img
+        src="../assets/images/order.png"
+        alt="order image"
+      >
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Ordering Guide",
+  name: "OrderingGuide",
 };
 </script>
 

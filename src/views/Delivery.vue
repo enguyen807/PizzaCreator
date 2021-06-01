@@ -8,7 +8,10 @@
         quam aspernatur quas enim similique quibusdam quia alias soluta cum
         odio? Asperiores, architecto.
       </p>
-      <img src="../assets/images/delivery.png" alt="delivery image" />
+      <img
+        src="../assets/images/delivery.png"
+        alt="delivery image"
+      >
     </div>
   </div>
 </template>

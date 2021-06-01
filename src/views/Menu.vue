@@ -3,7 +3,10 @@
     <!-- Menu -->
     <div class="menu">
       <h3>~ Authentic handmade pizza ~</h3>
-      <table v-for="item in getMenuItems" :key="item.name">
+      <table
+        v-for="item in getMenuItems"
+        :key="item.name"
+      >
         <tbody>
           <tr>
             <td>
@@ -15,7 +18,10 @@
               <small>{{ item.description }}</small>
             </td>
           </tr>
-          <tr v-for="(option, index) in item.options" :key="index">
+          <tr
+            v-for="(option, index) in item.options"
+            :key="index"
+          >
             <td>{{ option.size }}"</td>
             <td>${{ option.price }}</td>
             <td>
@@ -36,14 +42,23 @@
       <h3>~ Basket ~</h3>
       <div v-if="basket.length > 0">
         <table>
-          <tbody v-for="(item, index) in basket" :key="index">
+          <tbody
+            v-for="(item, index) in basket"
+            :key="index"
+          >
             <tr>
               <td>
-                <button class="btn_green" @click="decreaseQty(item)">
+                <button
+                  class="btn_green"
+                  @click="decreaseQty(item)"
+                >
                   &#8722;
                 </button>
                 <span>{{ item.quantity }}</span>
-                <button class="btn_green" @click="increaseQty(item)">
+                <button
+                  class="btn_green"
+                  @click="increaseQty(item)"
+                >
                   &#43;
                 </button>
               </td>
@@ -53,9 +68,13 @@
           </tbody>
         </table>
         <p>Order total:</p>
-        <button class="btn_green">Place Order</button>
+        <button class="btn_green">
+          Place Order
+        </button>
       </div>
-      <div v-else>{{ basketText }}</div>
+      <div v-else>
+        {{ basketText }}
+      </div>
     </div>
   </div>
 </template>

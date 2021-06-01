@@ -18,9 +18,8 @@ export default {
 
 <style>
 body {
-  font-family: "Crimson Text", "serif";
+  font-family: "Baloo 2", cursive;
   margin: 0;
-  font-size: 1.5em;
 }
 
 a {

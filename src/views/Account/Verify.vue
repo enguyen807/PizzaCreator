@@ -9,7 +9,7 @@
       <div class="mb-10">
         <label for="email" class="title">Email Address</label>
         <label for="email" class="subtitle">Eg. example@domain.com</label>
-        <input type="email" id="email" />
+        <input id="email" type="email" />
       </div>
       <button type="button" class="btn_green">Resend verification link</button>
     </form>
@@ -22,7 +22,7 @@ import { firebaseAuth } from "@/firebase";
 export default {};
 </script>
 
-<style>
+<style scoped>
 .title {
   margin: 0px;
 }
