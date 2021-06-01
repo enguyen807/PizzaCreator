@@ -168,6 +168,8 @@ h3 {
 
 .btn_green {
   background: palegreen;
+  color: black;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 900px) {

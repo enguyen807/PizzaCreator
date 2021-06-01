@@ -1,6 +1,11 @@
 <template>
   <div class="admin_wrapper">
-    <div class="current_user_wrapper"></div>
+    <div class="current_user_wrapper">
+      <span>Logged in as:</span>
+      <button type="button" class="btn_red" @click.prevent="logOut">
+        Logout
+      </button>
+    </div>
     <NewPizzaForm />
     <div class="menu_wrapper">
       <h3>Menu:</h3>
@@ -51,11 +56,21 @@
 
 <script>
 import NewPizzaForm from "@/components/PizzaForm/PizzaForm.vue";
+import { firebaseAuth } from "@/firebase";
 
 export default {
   name: "Admin",
   components: {
     NewPizzaForm,
+  },
+  methods: {
+    async logOut() {
+      try {
+        await firebaseAuth.signOut();
+      } catch (error) {
+        alert(`error signing out, ${error}`);
+      }
+    },
   },
 };
 </script>
@@ -68,6 +83,7 @@ export default {
 .current_user_wrapper,
 .order_wrapper,
 .menu_wrapper {
+  width: 50%;
   margin: 10px 0;
   padding: 10px;
   border: solid 1px #f79e38;

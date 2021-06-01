@@ -16,5 +16,32 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style>
+body {
+  font-family: "Crimson Text", "serif";
+  margin: 0;
+  font-size: 1.5em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 10px 0;
+  background: #f1e6da;
+  text-transform: capitalize;
+}
+
+li {
+  list-style: none;
+}
+
+ul > span {
+  margin: 0 5px;
+}
 </style>

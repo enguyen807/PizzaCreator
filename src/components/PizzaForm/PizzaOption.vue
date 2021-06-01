@@ -1,14 +1,15 @@
 <template>
-  <div>
-    <p>
-      <strong>{{ optionName }}:</strong>
-    </p>
+  <fieldset>
+    <legend>
+      <strong>Option</strong>
+    </legend>
     <div class="form-group">
       <label for="size">Size(")</label>
       <input
         type="number"
         id="size"
-        v-model.lazy="option.size"
+        ref="size"
+        v-model.number.lazy="option.size"
         placeholder='Eg. 9" or 12"'
       />
     </div>
@@ -17,21 +18,18 @@
       <input
         type="number"
         id="price"
+        ref="price"
         v-model.lazy="option.price"
         placeholder="Eg. 10.99"
+        step=".01"
       />
     </div>
-  </div>
+    <button type="button" class="btn_green">Add Option</button>
+  </fieldset>
 </template>
 
 <script>
 export default {
-  props: {
-    optionName: {
-      type: String,
-      required: true,
-    },
-  },
   data() {
     return {
       option: {
@@ -40,22 +38,20 @@ export default {
       },
     };
   },
-  watch: {
-    option: {
-      deep: true,
-      handler() {
-        const { size, price } = this.option;
+  watch: {},
+  methods: {
+    handleAddOption() {
+      const { size, price } = this.option;
 
-        if (size && price) {
-          this.$emit("option-input", {
-            size: +size,
-            price: parseFloat(price).toFixed(2),
-          });
-        }
-      },
+      if (size && price) {
+        console.log(this.$refs.size.blur());
+        this.$emit("option-input", {
+          size: size,
+          price: parseFloat(price).toFixed(2),
+        });
+      }
     },
   },
-  methods: {},
 };
 </script>
 

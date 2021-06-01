@@ -1,5 +1,5 @@
 <template>
-  <form action="">
+  <form class="form_wrapper">
     <h3>Add new pizza:</h3>
     <div class="form-group">
       <label for="name">Name</label>
@@ -20,16 +20,17 @@
         placeholder="Eg. A delicious tomato based pizza topped with mozzarella"
       ></textarea>
     </div>
-    <PizzaOption option-name="Option 1" @option-input="handleOptionInput" />
-    <PizzaOption option-name="Option 2" @option-input="handleOptionInput" />
-    <button type="button" class="btn_green" @click="handleNewPizzaForm">
-      Add
+    <PizzaOption @option-input="handleOptionInput" />
+
+    <button type="button" class="btn_green mt-5" @click="handleNewPizzaForm">
+      Add New Pizza
     </button>
     {{ newPizza }}
   </form>
 </template>
 
 <script>
+import { dbMenuRef } from "@/firebase.js";
 import PizzaOption from "@/components/PizzaForm/PizzaOption.vue";
 
 export default {
@@ -50,7 +51,9 @@ export default {
     handleOptionInput(event) {
       this.newPizza.options.push(event);
     },
-    handleNewPizzaForm() {},
+    handleNewPizzaForm() {
+      dbMenuRef.add(this.newPizza);
+    },
   },
 };
 </script>
@@ -66,8 +69,9 @@ label {
 }
 
 input,
-textarea {
-  width: 50%;
+textarea,
+fieldset {
+  width: 100%;
   padding: 5px;
   box-sizing: border-box;
   background: rgb(254, 254, 252);
@@ -79,5 +83,14 @@ button.btn_green {
   color: white;
   padding: 5px 15px;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.mt-5 {
+  margin-top: 30px;
+}
+
+.form_wrapper {
+  width: 50%;
 }
 </style>
