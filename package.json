@@ -46,7 +46,8 @@
       "parser": "babel-eslint"
     },
     "rules": {
-      "vue/comment-directive": 0
+      "vue/comment-directive": 0,
+      "no-console": "off"
     }
   },
   "browserslist": [

@@ -4,7 +4,9 @@
       <h2>Welcome to Pizza Planet!</h2>
       <img src="@/assets/images/roller.png" alt="roller" />
       <h3>Feeling Hungry?</h3>
-      <button class="order_btn">Let's order!</button>
+      <router-link to="/menu">
+        <button type="button" class="order_btn">Let's order!</button>
+      </router-link>
     </div>
   </div>
 </template>
