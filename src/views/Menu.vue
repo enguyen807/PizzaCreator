@@ -1,81 +1,99 @@
 <template>
   <div class="menu_wrapper">
     <!-- Menu -->
-    <div class="menu">
-      <h3>~ Authentic handmade pizza ~</h3>
-      <table
-        v-for="item in getMenuItems"
-        :key="item.name"
-      >
-        <tbody>
-          <tr>
-            <td>
-              <strong>~ {{ item.name }} ~</strong>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <small>{{ item.description }}</small>
-            </td>
-          </tr>
-          <tr
-            v-for="(option, index) in item.options"
-            :key="index"
+    <v-card class="menu">
+      <v-card-title class="text-h4">~ Authentic handmade pizza ~</v-card-title>
+      <div v-for="(category, index) in Object.keys(categories)" :key="index">
+        <v-card-subtitle
+          class="text-h5 font-weight-bold secondary--text text-uppercase"
+          >{{ category }}</v-card-subtitle
+        >
+        <v-card-text>
+          <table
+            v-for="(item, innerIndex) in categories[category]"
+            :key="innerIndex"
           >
-            <td>{{ option.size }}"</td>
-            <td>${{ option.price }}</td>
-            <td>
-              <button
-                type="button"
-                class="btn_green"
-                @click="addToBasket(item, option)"
-              >
-                +
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="font-weight-bold text-h6"
+                    >~ {{ item.name }} ~</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ item.description }}</small>
+                </td>
+              </tr>
+              <tr v-for="(option, index) in item.options" :key="index">
+                <td>{{ option.size }}"</td>
+                <td>${{ option.price }}</td>
+                <td>
+                  <v-btn
+                    x-small
+                    color="accent"
+                    @click="addToBasket(item, option)"
+                  >
+                    +
+                  </v-btn>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </v-card-text>
+        <v-divider />
+      </div>
+    </v-card>
     <!-- Basket -->
-    <div class="basket">
-      <h3>~ Basket ~</h3>
-      <div v-if="basket.length > 0">
-        <table>
-          <tbody
-            v-for="(item, index) in basket"
-            :key="index"
-          >
-            <tr>
-              <td>
-                <button
-                  class="btn_green"
-                  @click="decreaseQty(item)"
-                >
-                  &#8722;
-                </button>
-                <span>{{ item.quantity }}</span>
-                <button
-                  class="btn_green"
-                  @click="increaseQty(item)"
-                >
-                  &#43;
-                </button>
-              </td>
-              <td>{{ item.name }} {{ item.size }}"</td>
-              <td>${{ item.price * item.quantity }}</td>
-            </tr>
-          </tbody>
-        </table>
-        <p>Order total:</p>
-        <button class="btn_green">
-          Place Order
-        </button>
-      </div>
-      <div v-else>
-        {{ basketText }}
-      </div>
-    </div>
+    <v-card class="basket">
+      <v-card-title class="text-h4">~ Basket ~</v-card-title>
+      <v-card-text>
+        <div v-if="basket.length > 0">
+          <table style="width: 100%">
+            <tbody v-for="(item, index) in basket" :key="index">
+              <tr>
+                <td class="font-weight-bold text-h6">{{ item.name }}</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Size: </span>{{ item.size }}"
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">Price: </span>
+                  <span class="text-subtitle-2 primary--text"
+                    >${{ item.price * item.quantity }}</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <v-btn outlined x-small @click="decreaseQty(item)">
+                    &#8722;
+                  </v-btn>
+                  <span class="mx-2">{{ item.quantity }}</span>
+                  <v-btn x-small outlined @click="increaseQty(item)">
+                    &#43;
+                  </v-btn>
+                </td>
+              </tr>
+              <tr>
+                <td><v-divider class="mt-1" /></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="mt-1 font-weight-bold text-h6">
+            Order total: ${{ basketTotal }}
+          </p>
+          <v-btn medium class="accent">Place Order</v-btn>
+        </div>
+        <div v-else>
+          {{ basketText }}
+        </div>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
@@ -86,10 +104,11 @@ export default {
     return {
       basket: [],
       basketText: "Your basket is empty",
-      getMenuItems: {
-        1: {
+      getMenuItems: [
+        {
           name: "Margherita",
           description: "A delicious tomato based pizza topped with mozzarella",
+          category: "vegetarian",
           options: [
             {
               size: 9,
@@ -101,10 +120,11 @@ export default {
             },
           ],
         },
-        2: {
+        {
           name: "Pepperoni",
           description:
             "A delicious tomato based pizza topped with mozzarella and pepperoni",
+          category: "meat",
           options: [
             {
               size: 9,
@@ -116,10 +136,11 @@ export default {
             },
           ],
         },
-        3: {
+        {
           name: "Ham and Pineapple",
           description:
             "A delicious tomato based pizza topped with mozzarella, ham and pineapple",
+          category: "meat",
           options: [
             {
               size: 9,
@@ -131,7 +152,39 @@ export default {
             },
           ],
         },
-      },
+        {
+          name: "Spinach Artichoke Pizza",
+          description:
+            "The ultimate vegan comfort food! A delicious vegan spinach artichoke pizza.",
+          category: "vegan",
+          options: [
+            {
+              size: 9,
+              price: 7.95,
+            },
+            {
+              size: 12,
+              price: 12.95,
+            },
+          ],
+        },
+        {
+          name: "Vegan Hawaiian BBQ Pizza",
+          description:
+            "Sweet, spicy, and smoky pizza topped with tofu bacon and pineapple.",
+          category: "vegan",
+          options: [
+            {
+              size: 9,
+              price: 7.95,
+            },
+            {
+              size: 12,
+              price: 12.95,
+            },
+          ],
+        },
+      ],
     };
   },
   methods: {
@@ -161,6 +214,23 @@ export default {
     },
     increaseQty(item) {
       item.quantity++;
+    },
+  },
+  computed: {
+    basketTotal() {
+      if (this.basket.length === 0) return null;
+      const total = this.basket.reduce(
+        (sum, basket) => sum + basket.price * basket.quantity,
+        0
+      );
+      return total.toFixed(2);
+    },
+    categories() {
+      return this.getMenuItems.reduce((acc, curr) => {
+        acc[curr.category] = acc[curr.category] || [];
+        acc[curr.category].push(curr);
+        return acc;
+      }, {});
     },
   },
 };

@@ -1,19 +1,16 @@
 <template>
-  <div class="info_block">
-    <h3>~ How to order ~</h3>
-    <div class="info_block_content">
+  <v-card elevation="5" outlined class="info_block" color="#f1e6da">
+    <v-card-title>~ How to order ~</v-card-title>
+    <v-card-text class="info_block_content">
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident
         quasi architecto eos sapiente voluptatem atque eveniet, necessitatibus
         quam aspernatur quas enim similique quibusdam quia alias soluta cum
         odio? Asperiores, architecto.
       </p>
-      <img
-        src="../assets/images/order.png"
-        alt="order image"
-      >
-    </div>
-  </div>
+      <img src="../assets/images/order.png" alt="order image" />
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
@@ -22,5 +19,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.v-card__title {
+  display: block;
+  text-align: center;
+}
 </style>

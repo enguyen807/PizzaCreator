@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import { firebaseAuth } from "@/firebase";
-
 export default {};
 </script>
 
@@ -37,6 +35,29 @@ export default {};
 }
 
 .verify_wrapper {
+  width: 50%;
+}
+
+.form-group {
+  margin: 10px 0;
+}
+
+label {
+  display: block;
+  margin: 0 0 10px 0;
+}
+
+input,
+textarea,
+fieldset {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+  background: rgb(254, 254, 252);
+  border: solid 1px #f79e38;
+}
+
+.form_wrapper {
   width: 50%;
 }
 </style>

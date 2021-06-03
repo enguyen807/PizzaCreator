@@ -1,12 +1,15 @@
 <template>
   <div class="background">
     <div class="background-overlay">
-      <h2>Welcome to Pizza Planet!</h2>
-      <img src="@/assets/images/roller.png" alt="roller" />
-      <h3>Feeling Hungry?</h3>
-      <router-link to="/menu">
-        <button type="button" class="order_btn">Let's order!</button>
-      </router-link>
+      <div>
+        <h1 class="text-h2 font-weight-bold">Welcome to Pizza Planet!</h1>
+      </div>
+      <div>
+        <h3>Feeling Hungry?</h3>
+        <router-link to="/menu">
+          <v-btn type="button" class="primary">Order Now</v-btn>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -27,9 +30,9 @@ h3 {
 }
 
 .background {
-  background: url("../assets/images/dough.jpg") center;
+  background: url("../assets/images/pizza_parallax-flipped-edit.jpg") center;
   background-size: cover;
-  height: 30vh;
+  height: 55vh;
   display: flex;
   text-align: center;
   align-items: center;
@@ -38,12 +41,11 @@ h3 {
 .background-overlay {
   display: flex;
   flex-direction: column;
-  background: #f1e6da;
+  /* background: #f1e6da; */
   opacity: 0.8;
-  width: 50%;
-  margin: 0 auto;
+  width: 30%;
   padding: 5px;
-  align-items: center;
+  justify-content: center;
 }
 
 .background-overlay > img {
