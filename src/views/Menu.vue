@@ -3,53 +3,58 @@
     <!-- Menu -->
     <v-card class="menu">
       <v-card-title class="text-h4">~ Authentic handmade pizza ~</v-card-title>
-      <div v-for="(category, index) in Object.keys(categories)" :key="index">
-        <v-card-subtitle
-          class="text-h5 font-weight-bold secondary--text text-uppercase"
-          >{{ category }}</v-card-subtitle
-        >
-        <v-card-text>
-          <table
-            v-for="(item, innerIndex) in categories[category]"
-            :key="innerIndex"
+      <div class="card_wrapper">
+        <div v-for="(category, index) in Object.keys(categories)" :key="index">
+          <v-card-subtitle
+            class="text-h5 font-weight-bold secondary--text text-uppercase"
+            >{{ category }}</v-card-subtitle
           >
-            <tbody>
-              <tr>
-                <td>
-                  <span class="font-weight-bold text-h6"
-                    >~ {{ item.name }} ~</span
-                  >
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <small>{{ item.description }}</small>
-                </td>
-              </tr>
-              <tr v-for="(option, index) in item.options" :key="index">
-                <td>{{ option.size }}"</td>
-                <td>${{ option.price }}</td>
-                <td>
-                  <v-btn
-                    x-small
-                    color="accent"
-                    @click="addToBasket(item, option)"
-                  >
-                    +
-                  </v-btn>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </v-card-text>
-        <v-divider />
+          <v-card-text>
+            <table
+              v-for="(item, innerIndex) in categories[category]"
+              :key="innerIndex"
+            >
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="font-weight-bold text-h6"
+                      >~ {{ item.name }} ~</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>{{ item.description }}</small>
+                  </td>
+                </tr>
+                <tr v-for="(option, index) in item.options" :key="index">
+                  <td>{{ option.size }}"</td>
+                  <td>${{ option.price }}</td>
+                  <td>
+                    <v-btn
+                      x-small
+                      color="accent"
+                      @click="handleAddPizzaToBasket(item, option)"
+                    >
+                      +
+                    </v-btn>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </v-card-text>
+          <v-divider />
+        </div>
       </div>
     </v-card>
     <!-- Basket -->
     <v-card class="basket">
       <v-card-title class="text-h4">~ Basket ~</v-card-title>
-      <v-card-text>
-        <div v-if="basket.length > 0">
+      <v-card-text class="overflow-y-auto">
+        <div
+          v-if="basket.length > 0"
+          :style="basket.length >= 4 ? 'height: 60vh' : ''"
+        >
           <table style="width: 100%">
             <tbody v-for="(item, index) in basket" :key="index">
               <tr>
@@ -64,17 +69,21 @@
                 <td>
                   <span class="font-weight-bold">Price: </span>
                   <span class="text-subtitle-2 primary--text"
-                    >${{ item.price * item.quantity }}</span
+                    >${{ (item.price * item.quantity).toFixed(2) }}</span
                   >
                 </td>
               </tr>
               <tr>
                 <td>
-                  <v-btn outlined x-small @click="decreaseQty(item)">
+                  <v-btn
+                    outlined
+                    x-small
+                    @click="handleRemovePizzaFromBasket(item)"
+                  >
                     &#8722;
                   </v-btn>
                   <span class="mx-2">{{ item.quantity }}</span>
-                  <v-btn x-small outlined @click="increaseQty(item)">
+                  <v-btn x-small outlined @click="handleAddPizzaToBasket(item)">
                     &#43;
                   </v-btn>
                 </td>
@@ -84,25 +93,30 @@
               </tr>
             </tbody>
           </table>
-          <p class="mt-1 font-weight-bold text-h6">
-            Order total: ${{ basketTotal }}
-          </p>
-          <v-btn medium class="accent">Place Order</v-btn>
         </div>
         <div v-else>
           {{ basketText }}
         </div>
       </v-card-text>
+      <v-card-actions v-if="basket.length > 0">
+        <div ref="orderSection" class="order_section">
+          <p class="mt-1 font-weight-bold text-h6">
+            Order total: ${{ basketTotalCost }}
+          </p>
+          <v-btn medium class="accent">Place Order</v-btn>
+        </div>
+      </v-card-actions>
     </v-card>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions, mapGetters } from "vuex";
+
 export default {
   name: "Menu",
   data() {
     return {
-      basket: [],
       basketText: "Your basket is empty",
       getMenuItems: [
         {
@@ -188,43 +202,28 @@ export default {
     };
   },
   methods: {
-    async addToBasket(item, option) {
-      const pizzaExists = await this.basket.find(
-        (pizza) => pizza.name === item.name && pizza.size === option.size
-      );
-      if (pizzaExists) {
-        pizzaExists.quantity++;
+    ...mapActions("basket", ["addToBasket", "removeFromBasket"]),
+    handleAddPizzaToBasket(item, option) {
+      if (!option) {
+        const data = item;
+        this.addToBasket({ data });
         return;
       }
-      this.basket.push({
+      const data = {
         name: item.name,
         price: option.price,
         size: option.size,
         quantity: 1,
-      });
+      };
+      this.addToBasket({ data });
     },
-    removeFromBasket(item) {
-      this.basket.splice(this.basket.indexOf(item), 1);
-    },
-    decreaseQty(item) {
-      item.quantity--;
-      if (item.quantity === 0) {
-        this.removeFromBasket(item);
-      }
-    },
-    increaseQty(item) {
-      item.quantity++;
+    handleRemovePizzaFromBasket(item) {
+      this.removeFromBasket({ item });
     },
   },
   computed: {
-    basketTotal() {
-      if (this.basket.length === 0) return null;
-      const total = this.basket.reduce(
-        (sum, basket) => sum + basket.price * basket.quantity,
-        0
-      );
-      return total.toFixed(2);
-    },
+    ...mapState("basket", ["basket"]),
+    ...mapGetters("basket", ["basketTotalCost"]),
     categories() {
       return this.getMenuItems.reduce((acc, curr) => {
         acc[curr.category] = acc[curr.category] || [];
@@ -253,6 +252,15 @@ h3 {
   height: 100vh;
   margin: 10px;
   padding: 10px;
+}
+
+.menu .card_wrapper {
+  height: 80vh;
+  overflow-y: auto;
+}
+
+.basket .v-card__text {
+  overflow-y: auto;
 }
 
 .btn_green {

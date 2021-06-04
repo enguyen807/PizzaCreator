@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <BaseHeader />
+    <BaseAlert />
     <v-main>
       <slot />
       <div class="info_block_wrapper">
@@ -16,12 +17,14 @@
 <script>
 import BaseHeader from "@/components/BaseHeader";
 import BaseFooter from "@/components/BaseFooter";
+import BaseAlert from "@/components/BaseAlert";
 
 export default {
   name: "DefaultLayout",
   components: {
     BaseHeader,
     BaseFooter,
+    BaseAlert,
   },
 };
 </script>

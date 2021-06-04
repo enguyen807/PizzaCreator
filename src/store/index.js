@@ -8,18 +8,28 @@ import { basket } from "./modules/basket.module";
 
 Vue.use(Vuex);
 
-const state = {};
+const state = {
+  isLoggedIn: false,
+  isAdmin: false,
+};
 
-export const getters = {};
+const getters = {};
 
-export const mutations = {};
+const mutations = {};
 
-// export default new Vuex.Store({
-//   state: {
-//     isLoggedIn: false,
-//     isAdmin: false,
-//   },
-//   mutations: {},
-//   actions: {},
-//   modules: {},
-// });
+const actions = {};
+
+const modules = {
+  user,
+  alert,
+  product,
+  basket,
+};
+
+export default new Vuex.Store({
+  state,
+  getters,
+  mutations,
+  actions,
+  modules,
+});

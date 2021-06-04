@@ -22,16 +22,25 @@
     <v-btn to="/register" text active-class="primary"> Register </v-btn>
     <v-btn class="ma-2" text icon color="primary">
       <v-icon>mdi-cart</v-icon>
-      <span class="cart-notification accent white--text">0</span>
+      <span
+        class="cart-notification accent white--text"
+        v-if="basketTotalQuantity"
+        >{{ basketTotalQuantity }}</span
+      >
     </v-btn>
   </v-app-bar>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "AppHeader",
   data() {
     return {};
+  },
+  computed: {
+    ...mapGetters("basket", ["basketTotalQuantity"]),
   },
 };
 </script>
