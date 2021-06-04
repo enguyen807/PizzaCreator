@@ -6,6 +6,7 @@ const state = {
 
 const getters = {
   basketTotalCost: (state) => {
+    if (basket.length === 0) return;
     const totalPrice = state.basket.reduce(
       (sum, basket) => sum + basket.price * basket.quantity,
       0
@@ -13,6 +14,7 @@ const getters = {
     return totalPrice.toFixed(2);
   },
   basketTotalQuantity: (state) => {
+    if (basket.length === 0) return;
     const totalQty = state.basket.reduce(
       (sum, basket) => sum + basket.quantity,
       0

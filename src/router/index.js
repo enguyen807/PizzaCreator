@@ -107,7 +107,7 @@ router.beforeEach((to, from, next) => {
     let user = {
       email: "enguyen807@gmail.com",
       isVerified: true,
-      isAdmin: false,
+      isAdmin: true,
       isLoggedIn: true,
     };
     if (!user.email) {

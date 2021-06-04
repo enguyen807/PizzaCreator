@@ -51,10 +51,7 @@
     <v-card class="basket">
       <v-card-title class="text-h4">~ Basket ~</v-card-title>
       <v-card-text class="overflow-y-auto">
-        <div
-          v-if="basket.length > 0"
-          :style="basket.length >= 4 ? 'height: 60vh' : ''"
-        >
+        <div v-if="basket.length > 0" class="basket-wrapper">
           <table style="width: 100%">
             <tbody v-for="(item, index) in basket" :key="index">
               <tr>
@@ -252,6 +249,10 @@ h3 {
   height: 100vh;
   margin: 10px;
   padding: 10px;
+}
+
+.basket-wrapper {
+  max-height: 68vh;
 }
 
 .menu .card_wrapper {
