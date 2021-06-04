@@ -99,7 +99,7 @@
         </div>
       </v-card-text>
       <v-card-actions v-if="basket.length > 0">
-        <div ref="orderSection" class="order_section">
+        <div class="order_section">
           <p class="mt-1 font-weight-bold text-h6">
             Order total: ${{ basketTotalCost }}
           </p>
