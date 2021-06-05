@@ -112,10 +112,13 @@ export default {
       type: Array,
     },
     totalCost: {
-      type: Number,
+      type: String,
     },
     totalQuantity: {
       type: Number,
+    },
+    links: {
+      type: Array,
     },
   },
 };

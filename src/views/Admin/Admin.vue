@@ -1,58 +1,35 @@
 <template>
-  <div class="admin_wrapper">
-    <div class="current_user_wrapper">
-      <span>Logged in as:</span>
-      <button type="button" class="btn_red" @click.prevent="logOut">
-        Logout
-      </button>
-    </div>
+  <div class="admin_wrapper d-sm-flex justify-sm-space-around">
     <NewPizzaForm />
-    <div class="menu_wrapper">
-      <h3>Menu:</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Remove from menu</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Margherita</td>
-            <td>
-              <button type="button" class="btn_red">&times;</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="orders_wrapper">
-      <h3>Current orders (5):</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Size</th>
-            <th>Quantity</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="order_number">
-            <th colspan="4">
-              <strong>Order Number: 4</strong>
-              <button type="button" class="btn_red">&times;</button>
-            </th>
-          </tr>
-          <tr>
-            <td>Margherita</td>
-            <td>9"</td>
-            <td>2</td>
-            <td>$13</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <v-card class="menu_wrapper" elevation="3">
+      <v-card-title>Menu:</v-card-title>
+      <v-card-text>
+        <v-simple-table>
+          <template #default>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Times Ordered</th>
+                <th>Remove from menu</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Margherita</td>
+                <td>9"</td>
+                <td>$6.95</td>
+                <td>5</td>
+                <td>
+                  <v-btn small class="red darken-1 white--text">&times;</v-btn>
+                </td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
@@ -85,15 +62,12 @@ export default {
 .current_user_wrapper,
 .order_wrapper,
 .menu_wrapper {
-  width: 50%;
-  margin: 10px 0;
-  padding: 10px;
-  border: solid 1px #f79e38;
+  padding: 12px;
+  width: 100%;
 }
 
 table {
   text-align: left;
-  width: 70vw;
 }
 
 .order_number th {

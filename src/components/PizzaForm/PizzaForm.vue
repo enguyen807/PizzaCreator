@@ -1,32 +1,36 @@
 <template>
-  <form class="form_wrapper">
-    <h3>Add new pizza:</h3>
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input
-        id="name"
-        v-model="newPizza.name"
-        type="text"
-        placeholder="Eg. Margherita"
-      />
-    </div>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea
-        id="description"
-        v-model="newPizza.description"
-        type="text"
-        rows="5"
-        placeholder="Eg. A delicious tomato based pizza topped with mozzarella"
-      />
-    </div>
-    <PizzaOption @option-input="handleOptionInput" />
+  <v-card>
+    <v-card-title>Add new pizza:</v-card-title>
+    <v-card-text>
+      <form class="form_wrapper pa-3">
+        <div class="form-group">
+          <v-text-field
+            id="name"
+            v-model="newPizza.name"
+            type="text"
+            label="Name"
+            placeholder="Eg. Margherita"
+          />
+        </div>
+        <div class="form-group">
+          <v-textarea
+            id="description"
+            v-model="newPizza.description"
+            type="text"
+            rows="5"
+            label="Description"
+            placeholder="Eg. A delicious tomato based pizza topped with mozzarella"
+          />
+        </div>
+        <PizzaOption @option-input="handleOptionInput" />
 
-    <button type="button" class="btn_green mt-5" @click="handleNewPizzaForm">
-      Add New Pizza
-    </button>
-    {{ newPizza }}
-  </form>
+        <v-btn class="accent mt-5" @click="handleNewPizzaForm">
+          Add New Pizza
+        </v-btn>
+        <div class="mt-5">{{ newPizza }}</div>
+      </form>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
@@ -63,6 +67,10 @@ export default {
   margin: 10px 0;
 }
 
+.v-card {
+  width: 100%;
+}
+
 label {
   display: block;
   margin: 0 0 10px 0;
@@ -79,6 +87,6 @@ fieldset {
 }
 
 .form_wrapper {
-  width: 50%;
+  width: 100%;
 }
 </style>

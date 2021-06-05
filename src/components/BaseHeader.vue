@@ -10,18 +10,26 @@
       :totalQuantity="basketTotalQuantity"
     >
       <template #toolbar-items>
-        <v-btn to="/" text active-class="primary"> Home </v-btn>
-        <v-btn to="/menu" text active-class="primary"> Menu </v-btn>
-        <v-btn to="/contact" text active-class="primary"> Contact </v-btn>
-        <v-btn to="/about" text active-class="primary"> About </v-btn>
+        <div v-show="!isMobile">
+          <v-btn
+            v-for="(link, index) in links"
+            :key="index"
+            :to="link['href']"
+            text
+            active-class="primary"
+            >{{ link["title"] }}</v-btn
+          >
+        </div>
       </template>
     </BaseToolbar>
+    <!-- Add Nav Drawer -->
+    <BaseNavigationDrawer v-model="drawer" :links="links" />
   </div>
 </template>
 
 <script>
 import BaseToolbar from "@/components/BaseToolbar/BaseToolbar";
-// import BaseNavigationDrawer from "@/components/BaseNavigationDrawer/BaseNavigationDrawer";
+import BaseNavigationDrawer from "@/components/BaseNavigationDrawer/BaseNavigationDrawer";
 
 import { mapState, mapGetters, mapActions } from "vuex";
 
@@ -29,11 +37,33 @@ export default {
   name: "AppHeader",
   components: {
     BaseToolbar,
-    // BaseNavigationDrawer,
+    BaseNavigationDrawer,
   },
   data() {
     return {
       drawer: false,
+      links: [
+        {
+          title: "Home",
+          icon: "mdi-home-city",
+          href: "/",
+        },
+        {
+          title: "Menu",
+          icon: "mdi-silverware",
+          href: "/menu",
+        },
+        {
+          title: "Contact",
+          icon: "mdi-card-account-mail-outline",
+          href: "/contact",
+        },
+        {
+          title: "About",
+          icon: "mdi-help-box",
+          href: "/about",
+        },
+      ],
     };
   },
   methods: {
@@ -64,7 +94,7 @@ export default {
     ...mapState("basket", ["basket"]),
     ...mapGetters("basket", ["basketTotalQuantity", "basketTotalCost"]),
     isMobile() {
-      return this.$vuetify.breakpoint.mdAndDown;
+      return this.$vuetify.breakpoint.smAndDown;
     },
   },
 };
