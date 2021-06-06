@@ -30,6 +30,7 @@
       :close-on-content-click="false"
       rounded="b-xl"
       class="overflow-hidden"
+      :disabled="basket.length === 0 ? true : false"
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn class="ma-2" text icon color="primary" v-bind="attrs" v-on="on">

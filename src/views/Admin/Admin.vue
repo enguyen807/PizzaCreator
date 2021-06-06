@@ -1,35 +1,31 @@
 <template>
-  <div class="admin_wrapper d-sm-flex justify-sm-space-around">
+  <div class="admin_wrapper">
     <NewPizzaForm />
-    <v-card class="menu_wrapper" elevation="3">
-      <v-card-title>Menu:</v-card-title>
-      <v-card-text>
-        <v-simple-table>
-          <template #default>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Size</th>
-                <th>Price</th>
-                <th>Times Ordered</th>
-                <th>Remove from menu</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Margherita</td>
-                <td>9"</td>
-                <td>$6.95</td>
-                <td>5</td>
-                <td>
-                  <v-btn small class="red darken-1 white--text">&times;</v-btn>
-                </td>
-              </tr>
-            </tbody>
-          </template>
-        </v-simple-table>
-      </v-card-text>
-    </v-card>
+    <v-container fluid>
+      <v-row>
+        <v-col>
+          <v-card class="menu_wrapper" elevation="4">
+            <v-card-title>Menu:</v-card-title>
+            <v-card-text>
+              <v-data-table
+                :headers="headers"
+                :items="pizzas"
+                class="elevation-0"
+              >
+                <template #[`item.remove`]="{ item }">
+                  <v-btn
+                    small
+                    class="red darken-1 white--text"
+                    @click="remove(item)"
+                    >&times;</v-btn
+                  >
+                </template>
+              </v-data-table>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -42,6 +38,31 @@ export default {
   components: {
     NewPizzaForm,
   },
+  data() {
+    return {
+      headers: [
+        { text: "Name", value: "name" },
+        { text: "Size", value: "size" },
+        { text: "Price", value: "price" },
+        { text: "Times Ordered", value: "times_ordered" },
+        { text: "Remove from menu", value: "remove", sortable: false },
+      ],
+      pizzas: [
+        {
+          name: "Margherita",
+          size: "9",
+          price: "$6.95",
+          times_ordered: "5",
+        },
+        {
+          name: "Margherita",
+          size: "12",
+          price: "$10.95",
+          times_ordered: "2",
+        },
+      ],
+    };
+  },
   methods: {
     async logOut() {
       try {
@@ -50,6 +71,13 @@ export default {
         alert(`error signing out, ${error}`);
       }
     },
+    remove(item) {
+      const index = this.pizzas.findIndex(
+        (pizza) => pizza.name === item.name && pizza.size === item.size
+      );
+      console.log(index);
+      this.pizzas.splice(index, 1);
+    },
   },
 };
 </script>
@@ -57,13 +85,6 @@ export default {
 <style scoped>
 .admin_wrapper {
   margin: 10px;
-}
-
-.current_user_wrapper,
-.order_wrapper,
-.menu_wrapper {
-  padding: 12px;
-  width: 100%;
 }
 
 table {

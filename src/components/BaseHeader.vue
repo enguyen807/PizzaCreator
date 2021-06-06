@@ -22,7 +22,6 @@
         </div>
       </template>
     </BaseToolbar>
-    <!-- Add Nav Drawer -->
     <BaseNavigationDrawer v-model="drawer" :links="links" />
   </div>
 </template>

@@ -25,7 +25,7 @@
         min="1.00"
       />
     </div>
-    <v-btn class="secondary">Add Option</v-btn>
+    <v-btn class="secondary" @click="handleAddOption">Add Option</v-btn>
   </fieldset>
 </template>
 
@@ -39,13 +39,11 @@ export default {
       },
     };
   },
-  watch: {},
   methods: {
     handleAddOption() {
       const { size, price } = this.option;
 
       if (size && price) {
-        console.log(this.$refs.size.blur());
         this.$emit("option-input", {
           size: size,
           price: parseFloat(price).toFixed(2),

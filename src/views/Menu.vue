@@ -2,11 +2,11 @@
   <div class="menu_wrapper">
     <!-- Menu -->
     <v-card class="menu">
-      <v-card-title class="text-h4">~ Authentic handmade pizza ~</v-card-title>
+      <v-card-title class="text-h5">~ Authentic handmade pizza ~</v-card-title>
       <div class="card_wrapper">
         <div v-for="(category, index) in Object.keys(categories)" :key="index">
           <v-card-subtitle
-            class="text-h5 font-weight-bold secondary--text text-uppercase"
+            class="text-h6 font-weight-bold secondary--text text-uppercase"
             >{{ category }}</v-card-subtitle
           >
           <v-card-text>
@@ -46,63 +46,6 @@
           <v-divider />
         </div>
       </div>
-    </v-card>
-    <!-- Basket -->
-    <v-card class="basket">
-      <v-card-title class="text-h4">~ Basket ~</v-card-title>
-      <v-card-text class="overflow-y-auto">
-        <div v-if="basket.length > 0" class="basket-wrapper">
-          <table style="width: 100%">
-            <tbody v-for="(item, index) in basket" :key="index">
-              <tr>
-                <td class="font-weight-bold text-h6">{{ item.name }}</td>
-              </tr>
-              <tr>
-                <td>
-                  <span class="font-weight-bold">Size: </span>{{ item.size }}"
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span class="font-weight-bold">Price: </span>
-                  <span class="text-subtitle-2 primary--text"
-                    >${{ (item.price * item.quantity).toFixed(2) }}</span
-                  >
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <v-btn
-                    outlined
-                    x-small
-                    @click="handleRemovePizzaFromBasket(item)"
-                  >
-                    &#8722;
-                  </v-btn>
-                  <span class="mx-2">{{ item.quantity }}</span>
-                  <v-btn x-small outlined @click="handleAddPizzaToBasket(item)">
-                    &#43;
-                  </v-btn>
-                </td>
-              </tr>
-              <tr>
-                <td><v-divider class="mt-1" /></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div v-else>
-          {{ basketText }}
-        </div>
-      </v-card-text>
-      <v-card-actions v-if="basket.length > 0">
-        <div class="order_section">
-          <p class="mt-1 font-weight-bold text-h6">
-            Order total: ${{ basketTotalCost }}
-          </p>
-          <v-btn medium class="accent">Place Order</v-btn>
-        </div>
-      </v-card-actions>
     </v-card>
   </div>
 </template>
