@@ -9,8 +9,7 @@ export default {
   name: "MapContainer",
   data() {
     return {
-      accessToken:
-        "pk.eyJ1IjoiZW5ndXllbjgwNyIsImEiOiJja3Btanp5Zm4yZnl1MnZyaWNmZGNzb2I1In0.zTNvcH_XssRdTHF96jteUg",
+      accessToken: process.env.VUE_APP_MAPBOX_ACCESSTOKEN,
     };
   },
   components: {},

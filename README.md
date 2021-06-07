@@ -41,5 +41,3 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### TODO
-
-Add map and form to contact us page
