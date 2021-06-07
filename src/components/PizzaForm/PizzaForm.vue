@@ -1,21 +1,20 @@
 <template>
   <v-container fluid>
     <v-row class="justify-space-around">
-      <v-col
-        md="6"
-        cols="12"
-      >
+      <v-col md="6" cols="12">
         <v-card elevation="4">
           <v-card-title>Create new pizza:</v-card-title>
           <v-card-text>
-            <form class="form_wrapper pa-3">
+            <v-form ref="pizzaForm" class="form_wrapper pa-3" v-model="valid">
               <div class="form-group">
                 <v-text-field
                   id="name"
                   v-model="newPizza.name"
                   type="text"
                   label="Name"
+                  :rules="nameRules"
                   placeholder="Eg. Margherita"
+                  required
                 />
               </div>
               <div class="form-group">
@@ -25,38 +24,39 @@
                   type="text"
                   rows="3"
                   label="Description"
+                  :rules="descriptionRules"
                   placeholder="Eg. A delicious tomato based pizza topped with mozzarella"
+                  required
                 />
               </div>
+              <div class="form-group">
+                <v-select
+                  :items="categories"
+                  v-model="newPizza.category"
+                  label="Category"
+                  :rules="[(v) => !!v || 'Category is required']"
+                  required
+                ></v-select>
+              </div>
               <PizzaOption @option-input="handleOptionInput" />
-            </form>
+            </v-form>
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col
-        md="6"
-        cols="12"
-      >
-        <v-card
-          height="100%"
-          min-height="100%"
-          class=""
-          elevation="4"
-        >
+      <v-col md="6" cols="12">
+        <v-card height="100%" min-height="100%" class="" elevation="4">
           <v-card-title>New Pizza Summary</v-card-title>
           <v-card-text>
-            <div v-show="newPizza.name">
-              Name: {{ newPizza.name }}
-            </div>
+            <div v-show="newPizza.name">Name: {{ newPizza.name }}</div>
             <div v-show="newPizza.description">
               Description: {{ newPizza.description }}
             </div>
+            <div v-show="newPizza.category">
+              Category: {{ newPizza.category }}
+            </div>
             <v-divider />
             <div v-show="newPizza.options.length > 0">
-              <div
-                v-for="(option, index) in newPizza.options"
-                :key="index"
-              >
+              <div v-for="(option, index) in newPizza.options" :key="index">
                 <div>Size: {{ option.size }}</div>
                 <div>Price: {{ option.price }}</div>
                 <v-divider />
@@ -67,6 +67,7 @@
             <v-btn
               class="accent"
               @click="handleNewPizzaForm"
+              :disabled="!formValid"
             >
               Add New Pizza
             </v-btn>
@@ -88,19 +89,46 @@ export default {
   },
   data() {
     return {
+      valid: false,
+      test: [],
+      categories: ["meat", "vegetarian", "vegan"],
       newPizza: {
         name: "",
         description: "",
+        category: "",
         options: [],
       },
+      nameRules: [
+        (v) => !!v || "Name is required",
+        (v) => (v && v.length >= 5) || "Name must be greater than 5 characters",
+      ],
+      descriptionRules: [
+        (v) => !!v || "Description is required",
+        (v) =>
+          (v && v.length >= 5) ||
+          "Description must be greater than 5 characters",
+      ],
     };
+  },
+  computed: {
+    formValid() {
+      return this.valid && this.newPizza.options.length > 0;
+    },
   },
   methods: {
     handleOptionInput(event) {
       this.newPizza.options.push({ ...event });
     },
     handleNewPizzaForm() {
-      dbMenuRef.add(this.newPizza);
+      try {
+        dbMenuRef.add(this.newPizza);
+        alert("New Pizza Added");
+        this.$refs.pizzaForm.reset();
+        this.newPizza.options = [];
+      } catch (error) {
+        const errorMessage = error.message;
+        alert(errorMessage);
+      }
     },
   },
 };

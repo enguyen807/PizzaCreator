@@ -3,34 +3,32 @@
     <legend>
       <strong>Option</strong>
     </legend>
-    <div class="form-group">
-      <v-text-field
-        id="size"
-        ref="size"
-        v-model.number.lazy="option.size"
-        label="Size(&quot;)"
-        type="text"
-        placeholder="Eg. 9&quot; or 12&quot;"
-      />
-    </div>
-    <div class="form-group">
-      <v-text-field
-        id="price"
-        ref="price"
-        v-model.lazy="option.price"
-        label="Price"
-        type="number"
-        placeholder="Eg. 10.99"
-        step=".01"
-        min="1.00"
-      />
-    </div>
-    <v-btn
-      class="secondary"
-      @click="handleAddOption"
-    >
-      Add Option
-    </v-btn>
+    <v-form ref="optionForm" v-model="valid" class="pa-3">
+      <div class="form-group">
+        <v-select
+          :items="sizes"
+          v-model="option.size"
+          label='Size(")'
+          :rules="[(v) => !!v || 'Size is required']"
+        ></v-select>
+      </div>
+      <div class="form-group">
+        <v-text-field
+          id="price"
+          ref="price"
+          v-model.lazy="option.price"
+          label="Price"
+          type="number"
+          placeholder="Eg. 10.99"
+          step=".01"
+          min="1.00"
+          :rules="priceRules"
+        />
+      </div>
+      <v-btn :disabled="!valid" class="secondary" @click="handleAddOption">
+        Add Option
+      </v-btn>
+    </v-form>
   </fieldset>
 </template>
 
@@ -38,9 +36,12 @@
 export default {
   data() {
     return {
+      sizes: ["9", "12"],
+      valid: false,
+      priceRules: [(v) => !!v || "Price is required"],
       option: {
-        size: "",
-        price: "",
+        size: 0,
+        price: 0,
       },
     };
   },
@@ -51,8 +52,10 @@ export default {
       if (size && price) {
         this.$emit("option-input", {
           size: size,
-          price: parseFloat(price).toFixed(2),
+          price: +parseFloat(price).toFixed(2),
+          times_ordered: 0,
         });
+        this.$refs.optionForm.reset();
       }
     },
   },

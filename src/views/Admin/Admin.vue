@@ -4,17 +4,25 @@
     <v-container fluid>
       <v-row>
         <v-col>
-          <v-card
-            class="menu_wrapper"
-            elevation="4"
-          >
+          <v-card class="menu_wrapper" elevation="4">
             <v-card-title>Menu:</v-card-title>
             <v-card-text>
               <v-data-table
                 :headers="headers"
-                :items="pizzas"
+                :items="products"
                 class="elevation-0"
+                group-by="name"
+                item-key="name + size"
               >
+                <template #[`group.header`]="{ group, items, isOpen, toggle }">
+                  <td colspan="6">
+                    <v-btn icon small @click="toggle">
+                      <v-icon v-if="isOpen"> mdi-minus </v-icon>
+                      <v-icon v-else> mdi-plus </v-icon>
+                    </v-btn>
+                    Category: {{ group }} ({{ items.length }} in the group)
+                  </td>
+                </template>
                 <template #[`item.remove`]="{ item }">
                   <v-btn
                     small
@@ -36,6 +44,7 @@
 <script>
 import NewPizzaForm from "@/components/PizzaForm/PizzaForm.vue";
 import { firebaseAuth } from "@/firebase";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Admin",
@@ -45,27 +54,18 @@ export default {
   data() {
     return {
       headers: [
+        { text: "Id", value: "id" },
         { text: "Name", value: "name" },
+        { text: "Category", value: "category" },
         { text: "Size", value: "size" },
         { text: "Price", value: "price" },
         { text: "Times Ordered", value: "times_ordered" },
         { text: "Remove from menu", value: "remove", sortable: false },
       ],
-      pizzas: [
-        {
-          name: "Margherita",
-          size: "9",
-          price: "$6.95",
-          times_ordered: "5",
-        },
-        {
-          name: "Margherita",
-          size: "12",
-          price: "$10.95",
-          times_ordered: "2",
-        },
-      ],
     };
+  },
+  computed: {
+    ...mapGetters("product", ["products"]),
   },
   methods: {
     async logOut() {
@@ -76,11 +76,11 @@ export default {
       }
     },
     remove(item) {
-      const index = this.pizzas.findIndex(
-        (pizza) => pizza.name === item.name && pizza.size === item.size
+      const index = this.products.findIndex(
+        (pizza) => pizza.id === item.id && pizza.size === item.size
       );
       console.log(index);
-      this.pizzas.splice(index, 1);
+      this.products.splice(index, 1);
     },
   },
 };

@@ -69,7 +69,7 @@ export default {
           options: [
             {
               size: 9,
-              price: 6.95,
+              price: 7.95,
             },
             {
               size: 12,
@@ -89,7 +89,7 @@ export default {
             },
             {
               size: 12,
-              price: 12.95,
+              price: 10.95,
             },
           ],
         },
@@ -105,7 +105,7 @@ export default {
             },
             {
               size: 12,
-              price: 12.95,
+              price: 10.95,
             },
           ],
         },
@@ -121,7 +121,7 @@ export default {
             },
             {
               size: 12,
-              price: 12.95,
+              price: 10.95,
             },
           ],
         },
@@ -137,7 +137,7 @@ export default {
             },
             {
               size: 12,
-              price: 12.95,
+              price: 10.95,
             },
           ],
         },
@@ -146,9 +146,10 @@ export default {
   },
   computed: {
     ...mapState("basket", ["basket"]),
+    ...mapState("product", ["pizzas"]),
     ...mapGetters("basket", ["basketTotalCost"]),
     categories() {
-      return this.getMenuItems.reduce((acc, curr) => {
+      return this.pizzas.reduce((acc, curr) => {
         acc[curr.category] = acc[curr.category] || [];
         acc[curr.category].push(curr);
         return acc;

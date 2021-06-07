@@ -2,16 +2,17 @@
   <v-app-bar app light elevation="20" clipped-left>
     <v-app-bar-nav-icon v-show="isMobile" @click="$emit('toggle-drawer')" />
 
-    <v-img
-      alt="Pizza Planet Logo"
-      class="shrink mr-2"
-      contain
-      src="@/assets/images/pizza (1).png"
-      transition="scale-transition"
-      width="40"
-      height="40"
-    />
-
+    <router-link to="/">
+      <v-img
+        alt="Pizza Planet Logo"
+        class="shrink mr-2"
+        contain
+        src="@/assets/images/pizza (1).png"
+        transition="scale-transition"
+        width="40"
+        height="40"
+      />
+    </router-link>
     <v-spacer />
 
     <slot name="toolbar-items" />

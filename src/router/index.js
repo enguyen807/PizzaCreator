@@ -5,9 +5,6 @@ import Admin from "../views/Admin/Admin.vue";
 import Verify from "../views/Account/Verify.vue";
 import Login from "../views/Account/Login.vue";
 import Register from "../views/Account/Register.vue";
-import OrderingGuide from "../views/OrderingGuide.vue";
-import History from "../views/History.vue";
-import Delivery from "../views/Delivery.vue";
 import About from "../views/About.vue";
 
 Vue.use(VueRouter);
@@ -16,7 +13,9 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    components: {
+      default: Home,
+    },
   },
   {
     path: "/menu",

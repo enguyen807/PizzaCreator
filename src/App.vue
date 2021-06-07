@@ -7,11 +7,19 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import BaseLayout from "./layouts/default";
+
 export default {
   name: "App",
   components: {
     BaseLayout,
+  },
+  mounted() {
+    this.getPizzas();
+  },
+  methods: {
+    ...mapActions("product", ["getPizzas"]),
   },
 };
 </script>
