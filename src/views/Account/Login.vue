@@ -4,28 +4,42 @@
     <h3>Welcome back, please login to your account</h3>
     <form action="">
       <div class="mb-10">
-        <label for="email" class="title">Email Address</label>
-        <label for="email" class="subtitle">Eg. example@domain.com</label>
+        <label
+          for="email"
+          class="title"
+        >Email Address</label>
+        <label
+          for="email"
+          class="subtitle"
+        >Eg. example@domain.com</label>
         <input
           id="email"
           v-model="email"
           type="email"
           autocomplete="username"
-        />
+        >
       </div>
       <div class="mb-10">
-        <label for="password" class="title">Password</label>
-        <label for="password" class="subtitle"
-          >Must have at least 6 characters</label
-        >
+        <label
+          for="password"
+          class="title"
+        >Password</label>
+        <label
+          for="password"
+          class="subtitle"
+        >Must have at least 6 characters</label>
         <input
           id="password"
           v-model="password"
           type="password"
           autocomplete="current-password"
-        />
+        >
       </div>
-      <button type="button" class="btn_green" @click.prevent="login">
+      <button
+        type="button"
+        class="btn_green"
+        @click.prevent="login"
+      >
         Sign in
       </button>
     </form>

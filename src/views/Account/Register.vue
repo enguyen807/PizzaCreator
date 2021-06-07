@@ -4,28 +4,42 @@
     <h3>Fill in the form below to get instant access</h3>
     <form action="">
       <div class="mb-10">
-        <label for="email" class="title">Email Address</label>
-        <label for="email" class="subtitle">Eg. example@domain.com</label>
+        <label
+          for="email"
+          class="title"
+        >Email Address</label>
+        <label
+          for="email"
+          class="subtitle"
+        >Eg. example@domain.com</label>
         <input
           id="email"
           v-model="user.email"
           type="email"
           autocomplete="username"
-        />
+        >
       </div>
       <div class="mb-10">
-        <label for="password" class="title">Password</label>
-        <label for="password" class="subtitle"
-          >Must have at least 6 characters</label
-        >
+        <label
+          for="password"
+          class="title"
+        >Password</label>
+        <label
+          for="password"
+          class="subtitle"
+        >Must have at least 6 characters</label>
         <input
           id="password"
           v-model="user.password"
           type="password"
           autocomplete="new-password"
-        />
+        >
       </div>
-      <button type="button" class="btn_green" @click="registerUser">
+      <button
+        type="button"
+        class="btn_green"
+        @click="registerUser"
+      >
         Register
       </button>
     </form>

@@ -2,13 +2,16 @@
   <div class="menu_wrapper">
     <!-- Menu -->
     <v-card class="menu">
-      <v-card-title class="text-h5">~ Authentic handmade pizza ~</v-card-title>
+      <v-card-title class="text-h5">
+        ~ Authentic handmade pizza ~
+      </v-card-title>
       <div class="card_wrapper">
         <div v-for="(category, index) in Object.keys(categories)" :key="index">
           <v-card-subtitle
             class="text-h6 font-weight-bold secondary--text text-uppercase"
-            >{{ category }}</v-card-subtitle
           >
+            {{ category }}
+          </v-card-subtitle>
           <v-card-text>
             <table
               v-for="(item, innerIndex) in categories[category]"
@@ -141,6 +144,17 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapState("basket", ["basket"]),
+    ...mapGetters("basket", ["basketTotalCost"]),
+    categories() {
+      return this.getMenuItems.reduce((acc, curr) => {
+        acc[curr.category] = acc[curr.category] || [];
+        acc[curr.category].push(curr);
+        return acc;
+      }, {});
+    },
+  },
   methods: {
     ...mapActions("basket", ["addToBasket", "removeFromBasket"]),
     handleAddPizzaToBasket(item, option) {
@@ -159,17 +173,6 @@ export default {
     },
     handleRemovePizzaFromBasket(item) {
       this.removeFromBasket({ item });
-    },
-  },
-  computed: {
-    ...mapState("basket", ["basket"]),
-    ...mapGetters("basket", ["basketTotalCost"]),
-    categories() {
-      return this.getMenuItems.reduce((acc, curr) => {
-        acc[curr.category] = acc[curr.category] || [];
-        acc[curr.category].push(curr);
-        return acc;
-      }, {});
     },
   },
 };
@@ -199,7 +202,7 @@ h3 {
 }
 
 .menu .card_wrapper {
-  height: 80vh;
+  height: 85vh;
   overflow-y: auto;
 }
 
@@ -215,16 +218,8 @@ h3 {
 
 @media screen and (min-width: 900px) {
   .menu_wrapper {
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-  }
-
-  .menu {
-    width: 65vw;
-  }
-
-  .basket {
-    width: 35vw;
   }
 }
 </style>

@@ -4,7 +4,10 @@
     <v-container fluid>
       <v-row>
         <v-col>
-          <v-card class="menu_wrapper" elevation="4">
+          <v-card
+            class="menu_wrapper"
+            elevation="4"
+          >
             <v-card-title>Menu:</v-card-title>
             <v-card-text>
               <v-data-table
@@ -17,8 +20,9 @@
                     small
                     class="red darken-1 white--text"
                     @click="remove(item)"
-                    >&times;</v-btn
                   >
+                    &times;
+                  </v-btn>
                 </template>
               </v-data-table>
             </v-card-text>

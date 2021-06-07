@@ -1,13 +1,13 @@
 <template>
   <div>
     <BaseToolbar
+      :is-mobile="isMobile"
+      :basket="basket"
+      :total-cost="basketTotalCost"
+      :total-quantity="basketTotalQuantity"
       @toggle-drawer="handleDrawer"
       @remove-pizza="handleRemovePizzaFromBasket"
       @add-pizza="handleAddPizzaToBasket"
-      :is-mobile="isMobile"
-      :basket="basket"
-      :totalCost="basketTotalCost"
-      :totalQuantity="basketTotalQuantity"
     >
       <template #toolbar-items>
         <div v-show="!isMobile">
@@ -17,8 +17,9 @@
             :to="link['href']"
             text
             active-class="primary"
-            >{{ link["title"] }}</v-btn
           >
+            {{ link["title"] }}
+          </v-btn>
         </div>
       </template>
     </BaseToolbar>
@@ -65,6 +66,13 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapState("basket", ["basket"]),
+    ...mapGetters("basket", ["basketTotalQuantity", "basketTotalCost"]),
+    isMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
+  },
   methods: {
     ...mapActions("basket", ["addToBasket", "removeFromBasket"]),
     handleAddPizzaToBasket(item, option) {
@@ -87,13 +95,6 @@ export default {
     },
     handleDrawer() {
       this.drawer = !this.drawer;
-    },
-  },
-  computed: {
-    ...mapState("basket", ["basket"]),
-    ...mapGetters("basket", ["basketTotalQuantity", "basketTotalCost"]),
-    isMobile() {
-      return this.$vuetify.breakpoint.smAndDown;
     },
   },
 };

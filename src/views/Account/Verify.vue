@@ -7,11 +7,25 @@
     </h3>
     <form action="">
       <div class="mb-10">
-        <label for="email" class="title">Email Address</label>
-        <label for="email" class="subtitle">Eg. example@domain.com</label>
-        <input id="email" type="email" />
+        <label
+          for="email"
+          class="title"
+        >Email Address</label>
+        <label
+          for="email"
+          class="subtitle"
+        >Eg. example@domain.com</label>
+        <input
+          id="email"
+          type="email"
+        >
       </div>
-      <button type="button" class="btn_green">Resend verification link</button>
+      <button
+        type="button"
+        class="btn_green"
+      >
+        Resend verification link
+      </button>
     </form>
   </div>
 </template>

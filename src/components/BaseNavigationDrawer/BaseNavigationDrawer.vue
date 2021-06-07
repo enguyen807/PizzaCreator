@@ -3,18 +3,18 @@
     disable-resize-watcher
     app
     :value="value"
-    @input="$emit('input', $event)"
     clipped
+    @input="$emit('input', $event)"
   >
     <v-list>
       <v-list-item
         v-for="link in links"
-        :to="link['href']"
         :key="link['title']"
+        :to="link['href']"
       >
-        <v-list-item-icon
-          ><v-icon>{{ link["icon"] }}</v-icon></v-list-item-icon
-        >
+        <v-list-item-icon>
+          <v-icon>{{ link["icon"] }}</v-icon>
+        </v-list-item-icon>
         <v-list-item-content>{{ link["title"] }}</v-list-item-content>
       </v-list-item>
     </v-list>
@@ -29,6 +29,30 @@ export default {
     },
     links: {
       type: Array,
+      default: function () {
+        return [
+          {
+            title: "Home",
+            icon: "mdi-home-city",
+            href: "/",
+          },
+          {
+            title: "Menu",
+            icon: "mdi-silverware",
+            href: "/menu",
+          },
+          {
+            title: "Contact",
+            icon: "mdi-card-account-mail-outline",
+            href: "/contact",
+          },
+          {
+            title: "About",
+            icon: "mdi-help-box",
+            href: "/about",
+          },
+        ];
+      },
     },
   },
 };

@@ -14,13 +14,18 @@
 import { mapState, mapActions } from "vuex";
 
 export default {
-  mounted() {
-    console.log("Alert mounted");
+  computed: {
+    ...mapState({
+      alert: (state) => state.alert,
+    }),
   },
   watch: {
     $route() {
       this.clearAlert();
     },
+  },
+  mounted() {
+    console.log("Alert mounted");
   },
   methods: {
     ...mapActions("alert", ["clear"]),
@@ -28,11 +33,6 @@ export default {
       if (!this.showAlert) return;
       this.clear();
     },
-  },
-  computed: {
-    ...mapState({
-      alert: (state) => state.alert,
-    }),
   },
 };
 </script>

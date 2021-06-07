@@ -1,9 +1,6 @@
 <template>
   <v-app-bar app light elevation="20" clipped-left>
-    <v-app-bar-nav-icon
-      v-show="isMobile"
-      @click="$emit('toggle-drawer')"
-    ></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon v-show="isMobile" @click="$emit('toggle-drawer')" />
 
     <v-img
       alt="Pizza Planet Logo"
@@ -17,7 +14,7 @@
 
     <v-spacer />
 
-    <slot name="toolbar-items"></slot>
+    <slot name="toolbar-items" />
 
     <v-spacer />
 
@@ -34,17 +31,18 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn class="ma-2" text icon color="primary" v-bind="attrs" v-on="on">
-          <v-icon>mdi-cart</v-icon>
-          <transition name="pop">
-            <span
-              class="cart-notification accent white--text"
-              v-if="basket.length > 0"
-              >{{ totalQuantity }}</span
-            >
-          </transition>
+          <v-badge
+            color="accent"
+            overlap
+            bordered
+            :value="totalQuantity"
+            :content="totalQuantity"
+          >
+            <v-icon>mdi-cart</v-icon>
+          </v-badge>
         </v-btn>
       </template>
-      <v-container class="pa-0" v-if="basket.length > 0">
+      <v-container v-if="basket.length > 0" class="pa-0">
         <v-row dense>
           <v-col cols="12">
             <div class="card_wrapper">
@@ -55,18 +53,17 @@
                 tile
               >
                 <div class="d-flex">
-                  <v-card-title class="text-h6"> {{ item.name }} </v-card-title>
+                  <v-card-title class="text-h6">
+                    {{ item.name }}
+                  </v-card-title>
                   <v-spacer />
-                  <v-card-title class="text-subtitle-1"
-                    >${{
-                      (item.price * item.quantity).toFixed(2)
-                    }}</v-card-title
-                  >
+                  <v-card-title class="text-subtitle-1">
+                    ${{ (item.price * item.quantity).toFixed(2) }}
+                  </v-card-title>
                 </div>
-                <v-card-subtitle class="py-0"
-                  ><span class="font-weight-bold">Size: </span
-                  >{{ item.size }}"</v-card-subtitle
-                >
+                <v-card-subtitle class="py-0">
+                  <span class="font-weight-bold">Size: </span>{{ item.size }}"
+                </v-card-subtitle>
 
                 <v-card-actions class="pa-4">
                   <v-btn
@@ -90,14 +87,21 @@
               </v-card>
             </div>
             <div class="order_section">
-              <v-btn medium class="accent font-weight-bold text-h6" block
-                >Place Order ${{ totalCost }}</v-btn
-              >
+              <v-btn medium class="accent font-weight-bold text-h6" block>
+                Place Order ${{ totalCost }}
+              </v-btn>
             </div>
           </v-col>
         </v-row>
       </v-container>
     </v-menu>
+    <template v-slot:extension>
+      <v-tabs align-with-title hide-slider>
+        <v-tab to="/about/history"> History </v-tab>
+        <v-tab to="/about/delivery"> Delivery </v-tab>
+        <v-tab to="/about/ordering-guide"> Ordering Guide </v-tab>
+      </v-tabs>
+    </template>
   </v-app-bar>
 </template>
 
@@ -111,15 +115,17 @@ export default {
     },
     basket: {
       type: Array,
+      default: function () {
+        return [];
+      },
     },
     totalCost: {
       type: String,
+      default: "0",
     },
     totalQuantity: {
       type: Number,
-    },
-    links: {
-      type: Array,
+      default: 0,
     },
   },
 };

@@ -1,7 +1,10 @@
 <template>
   <v-container fluid>
     <v-row class="justify-space-around">
-      <v-col md="6" cols="12">
+      <v-col
+        md="6"
+        cols="12"
+      >
         <v-card elevation="4">
           <v-card-title>Create new pizza:</v-card-title>
           <v-card-text>
@@ -30,17 +33,30 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col md="6" cols="12">
-        <v-card height="100%" min-height="100%" class="" elevation="4">
+      <v-col
+        md="6"
+        cols="12"
+      >
+        <v-card
+          height="100%"
+          min-height="100%"
+          class=""
+          elevation="4"
+        >
           <v-card-title>New Pizza Summary</v-card-title>
           <v-card-text>
-            <div v-show="newPizza.name">Name: {{ newPizza.name }}</div>
+            <div v-show="newPizza.name">
+              Name: {{ newPizza.name }}
+            </div>
             <div v-show="newPizza.description">
               Description: {{ newPizza.description }}
             </div>
             <v-divider />
             <div v-show="newPizza.options.length > 0">
-              <div v-for="(option, index) in newPizza.options" :key="index">
+              <div
+                v-for="(option, index) in newPizza.options"
+                :key="index"
+              >
                 <div>Size: {{ option.size }}</div>
                 <div>Price: {{ option.price }}</div>
                 <v-divider />
@@ -48,7 +64,10 @@
             </div>
           </v-card-text>
           <v-card-actions>
-            <v-btn class="accent" @click="handleNewPizzaForm">
+            <v-btn
+              class="accent"
+              @click="handleNewPizzaForm"
+            >
               Add New Pizza
             </v-btn>
           </v-card-actions>

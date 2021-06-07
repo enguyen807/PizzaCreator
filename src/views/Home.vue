@@ -2,12 +2,19 @@
   <div class="background">
     <div class="background-overlay">
       <div>
-        <h1 class="text-h2 font-weight-bold">Welcome to Pizza Planet!</h1>
+        <h1 class="text-h2 font-weight-bold">
+          Welcome to Pizza Planet!
+        </h1>
       </div>
       <div>
         <h3>Feeling Hungry?</h3>
         <router-link to="/menu">
-          <v-btn type="button" class="primary">Order Now</v-btn>
+          <v-btn
+            type="button"
+            class="primary"
+          >
+            Order Now
+          </v-btn>
         </router-link>
       </div>
     </div>

@@ -8,6 +8,7 @@ import Register from "../views/Account/Register.vue";
 import OrderingGuide from "../views/OrderingGuide.vue";
 import History from "../views/History.vue";
 import Delivery from "../views/Delivery.vue";
+import About from "../views/About.vue";
 
 Vue.use(VueRouter);
 
@@ -15,12 +16,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    components: {
-      default: Home,
-      "ordering-guide": OrderingGuide,
-      delivery: Delivery,
-      history: History,
-    },
+    component: Home,
   },
   {
     path: "/menu",
@@ -38,22 +34,21 @@ const routes = [
   {
     path: "/about",
     name: "About",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
     meta: { requiresAuth: false },
+    component: About,
     children: [
       {
-        path: "/history",
+        path: "history",
         component: () =>
           import(/* webpackChunkName: "history" */ "../views/History.vue"),
       },
       {
-        path: "/delivery",
+        path: "delivery",
         component: () =>
           import(/* webpackChunkName: "delivery" */ "../views/Delivery.vue"),
       },
       {
-        path: "/ordering-guide",
+        path: "ordering-guide",
         component: () =>
           import(
             /* webpackChunkName: "orderingguide" */ "../views/OrderingGuide.vue"
