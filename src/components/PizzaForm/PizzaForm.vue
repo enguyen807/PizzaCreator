@@ -98,6 +98,7 @@
 
                     <PizzaOption
                       @update-option="handleUpdateOption"
+                      @remove-option="handleRemoveOption"
                       :option-prop="pizza.options"
                       :tab-change="tab"
                       option-name="update"
@@ -146,15 +147,11 @@
                   </v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="green darken-1" text @click="dialog = false">
-                      Disagree
+                    <v-btn outlined text @click="dialog = false">
+                      Cancel
                     </v-btn>
-                    <v-btn
-                      color="green darken-1"
-                      text
-                      @click="handleRemovePizza"
-                    >
-                      Agree
+                    <v-btn color="error darken-1" @click="handleRemovePizza">
+                      Delete Pizza
                     </v-btn>
                   </v-card-actions>
                 </v-card>
@@ -209,14 +206,7 @@ export default {
   },
   watch: {
     tab(value) {
-      const pizzaObj = {
-        name: "",
-        description: "",
-        category: "",
-        options: [],
-      };
-      this.pizza = pizzaObj;
-      this.$refs.pizzaForm.resetValidation();
+      this.resetPizzaForm();
     },
   },
   computed: {
@@ -234,14 +224,34 @@ export default {
         (option) => option.size === event.size
       );
 
-      this.pizza.options[optionIndex].price = event.price;
+      Object.assign(this.pizza.options[optionIndex], event);
+    },
+    handleRemoveOption(event) {
+      if (this.pizza.options.length < 2) {
+        alert("Pizza must have at least 1 option");
+        return;
+      }
+      const optionIndex = this.pizza.options.findIndex(
+        (option) => option.size === event.size
+      );
+
+      this.pizza.options.splice(optionIndex, 1);
+    },
+    resetPizzaForm() {
+      const pizzaObj = {
+        name: "",
+        description: "",
+        category: "",
+        options: [],
+      };
+      this.pizza = pizzaObj;
+      this.$refs.pizzaForm.resetValidation();
     },
     async handleNewPizza() {
       try {
         await dbMenuRef.add(this.newPizza);
         alert("New Pizza Added");
-        this.$refs.pizzaForm.reset();
-        this.pizzaObj.options = [];
+        this.resetPizzaForm();
       } catch (error) {
         const errorMessage = error.message;
         alert(errorMessage);
@@ -251,8 +261,7 @@ export default {
       try {
         await dbMenuRef.doc(this.pizza.id).update(this.pizza);
         alert("Existing Pizza Updated");
-        this.$refs.pizzaForm.reset();
-        this.pizzaObj.options = [];
+        this.resetPizzaForm();
       } catch (error) {
         const errorMessage = error.message;
         alert(errorMessage);
@@ -260,6 +269,12 @@ export default {
     },
     async handleRemovePizza() {
       this.dialog = false;
+      try {
+        await dbMenuRef.doc(this.pizza.id).delete();
+      } catch (error) {
+        const errorMessage = error.message;
+        alert(errorMessage);
+      }
     },
   },
 };

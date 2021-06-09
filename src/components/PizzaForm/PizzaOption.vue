@@ -1,13 +1,7 @@
 <template>
   <fieldset>
-    <legend>
-      <strong class="text-h6"
-        ><span class="text-capitalize">{{ optionName }} </span>
-        <span class="text-capitalize">{{
-          optionName === "create" ? "new" : "existing"
-        }}</span>
-        Option</strong
-      >
+    <legend class="text-h6 text-capitalize">
+      {{ optionTitle }}
     </legend>
     <v-form ref="optionForm" v-model="valid" class="pa-3">
       <div class="form-group">
@@ -18,6 +12,10 @@
           return-object
           v-model="option"
           label='Size(")'
+          hint="Please select a size to add or update an option"
+          persistent-hint
+          eager
+          no-data-text="Please select a pizza"
           :rules="[(v) => !!v || 'Size is required']"
         ></v-select>
       </div>
@@ -83,26 +81,33 @@ export default {
         price: 0,
         times_ordered: 0,
       },
+      defaultOption: {
+        size: 0,
+        price: 0,
+        times_ordered: 0,
+      },
       newOption: {
         price: 0,
       },
     };
   },
+  computed: {
+    optionTitle() {
+      return this.optionName === "create"
+        ? "Create A New Option"
+        : "Update An Existing Option";
+    },
+  },
   watch: {
     tabChange() {
-      const optionObj = {
-        size: 0,
-        price: 0,
-        times_ordered: 0,
-      };
-      this.option = optionObj;
+      this.option = this.defaultOption;
       this.$refs.optionForm.resetValidation();
     },
   },
   methods: {
     resetOption() {
-      this.option.size = 0;
-      this.newOption.price = 0;
+      this.option = this.defaultOption;
+      this.newOption = 0;
       this.$refs.optionForm.resetValidation();
     },
     handleAddOption() {
@@ -118,12 +123,12 @@ export default {
       }
     },
     handleUpdateOption() {
-      const { size, times_ordered } = this.option;
+      const { size, times_ordered, price } = this.option;
 
-      if (size && this.newOption.price) {
+      if (size && (this.newOption.price || price)) {
         this.$emit("update-option", {
           size: size,
-          price: +parseFloat(this.newOption.price).toFixed(2),
+          price: +parseFloat(this.newOption.price || price).toFixed(2),
           times_ordered: times_ordered,
         });
       }
@@ -135,11 +140,9 @@ export default {
         this.$emit("remove-option", {
           size: size,
         });
+        this.resetOption();
       }
     },
   },
 };
 </script>
-
-<style>
-</style>
