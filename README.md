@@ -41,3 +41,8 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### TODO
+
+Add New Option to Existing Pizza
+Update An Existing Option
+-Remove Option
+-Remove Pizza

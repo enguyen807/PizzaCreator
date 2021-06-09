@@ -1,6 +1,6 @@
 <template>
   <div class="admin_wrapper">
-    <NewPizzaForm />
+    <PizzaForm />
     <v-container fluid>
       <v-row>
         <v-col>
@@ -23,15 +23,6 @@
                     Category: {{ group }} ({{ items.length }} in the group)
                   </td>
                 </template>
-                <template #[`item.remove`]="{ item }">
-                  <v-btn
-                    small
-                    class="red darken-1 white--text"
-                    @click="remove(item)"
-                  >
-                    &times;
-                  </v-btn>
-                </template>
               </v-data-table>
             </v-card-text>
           </v-card>
@@ -42,14 +33,14 @@
 </template>
 
 <script>
-import NewPizzaForm from "@/components/PizzaForm/PizzaForm.vue";
+import PizzaForm from "@/components/PizzaForm/PizzaForm.vue";
 import { firebaseAuth } from "@/firebase";
 import { mapGetters } from "vuex";
 
 export default {
   name: "Admin",
   components: {
-    NewPizzaForm,
+    PizzaForm,
   },
   data() {
     return {
@@ -60,7 +51,6 @@ export default {
         { text: "Size", value: "size" },
         { text: "Price", value: "price" },
         { text: "Times Ordered", value: "times_ordered" },
-        { text: "Remove from menu", value: "remove", sortable: false },
       ],
     };
   },

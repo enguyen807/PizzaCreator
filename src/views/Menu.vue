@@ -13,38 +13,31 @@
             {{ category }}
           </v-card-subtitle>
           <v-card-text>
-            <table
+            <div
+              class="container container--fluid"
               v-for="(item, innerIndex) in categories[category]"
               :key="innerIndex"
             >
-              <tbody>
-                <tr>
-                  <td>
-                    <span class="font-weight-bold text-h6"
-                      >~ {{ item.name }} ~</span
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <small>{{ item.description }}</small>
-                  </td>
-                </tr>
-                <tr v-for="(option, index) in item.options" :key="index">
-                  <td>{{ option.size }}"</td>
-                  <td>${{ option.price }}</td>
-                  <td>
-                    <v-btn
-                      x-small
-                      color="accent"
-                      @click="handleAddPizzaToBasket(item, option)"
-                    >
-                      +
-                    </v-btn>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+              <div class="font-weight-bold text-h6">~ {{ item.name }} ~</div>
+              <div class="text-subtitle-2 mb-3">{{ item.description }}</div>
+              <div
+                class="row dense"
+                v-for="(option, index) in item.options"
+                :key="index"
+              >
+                <div class="col col-2">{{ option.size }}"</div>
+                <div class="col col-4 text-right">${{ option.price }}</div>
+                <div class="col col-3">
+                  <v-btn
+                    x-small
+                    color="accent"
+                    @click="handleAddPizzaToBasket(item, option)"
+                  >
+                    +
+                  </v-btn>
+                </div>
+              </div>
+            </div>
           </v-card-text>
           <v-divider />
         </div>
