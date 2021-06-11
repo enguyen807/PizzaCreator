@@ -1,71 +1,68 @@
 <template>
-  <v-container fluid>
-    <v-row class="justify-space-around">
-      <v-col cols="12">
-        <v-card elevation="4">
-          <v-card-text>
-            <v-form ref="pizzaForm" class="form_wrapper pa-3" v-model="valid">
-              <div class="form-group">
-                <v-text-field
-                  id="name"
-                  v-model="pizza.name"
-                  type="text"
-                  label="Name"
-                  :rules="nameRules"
-                  placeholder="Eg. Margherita"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <v-textarea
-                  id="description"
-                  v-model="pizza.description"
-                  type="text"
-                  rows="3"
-                  label="Description"
-                  :rules="descriptionRules"
-                  placeholder="Eg. A delicious tomato based pizza topped with mozzarella"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <v-select
-                  :items="categories"
-                  v-model="pizza.category"
-                  label="Category"
-                  :rules="categoryRules"
-                  required
-                ></v-select>
-              </div>
-              <div class="form-group">
-                <v-select
-                  :items="sizes"
-                  item-text="size"
-                  item-value="size"
-                  v-model="pizza.size"
-                  label='Size(")'
-                  :rules="sizeRules"
-                ></v-select>
-              </div>
-              <div class="form-group">
-                <v-text-field
-                  v-model="pizza.price"
-                  label="Price"
-                  type="number"
-                  placeholder="Eg. 10.99"
-                  step=".01"
-                  min="1.00"
-                  :rules="priceRules"
-                />
-              </div>
-            </v-form>
-          </v-card-text>
+  <v-card class="pa-5">
+    <v-card-title>Add New Pizza</v-card-title>
+    <v-card-text>
+      <v-form ref="pizzaForm" v-model="valid">
+        <div class="form-group">
+          <v-text-field
+            id="name"
+            v-model="pizza.name"
+            type="text"
+            label="Name"
+            :rules="nameRules"
+            placeholder="Eg. Margherita"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <v-textarea
+            id="description"
+            v-model="pizza.description"
+            type="text"
+            rows="3"
+            label="Description"
+            :rules="descriptionRules"
+            placeholder="Eg. A delicious tomato based pizza topped with mozzarella"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <v-select
+            :items="categories"
+            v-model="pizza.category"
+            label="Category"
+            :rules="categoryRules"
+            required
+          ></v-select>
+        </div>
+        <div class="form-group">
+          <v-select
+            :items="sizes"
+            item-text="size"
+            item-value="size"
+            v-model="pizza.size"
+            label='Size(")'
+            :rules="sizeRules"
+          ></v-select>
+        </div>
+        <div class="form-group">
+          <v-text-field
+            v-model="pizza.price"
+            label="Price"
+            type="number"
+            placeholder="Eg. 10.99"
+            step=".01"
+            min="1.00"
+            :rules="priceRules"
+          />
+        </div>
+      </v-form>
+    </v-card-text>
 
-          <slot name="pizza-form-actions" v-bind:pizza="pizza"></slot>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+    <v-card-actions>
+      <slot name="pizza-form-actions" v-bind:pizza="pizza"></slot>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
@@ -159,9 +156,5 @@ export default {
 <style scoped>
 .form-group {
   margin: 10px 0;
-}
-
-.form_wrapper {
-  width: 100%;
 }
 </style>

@@ -1,56 +1,60 @@
 <template>
-  <v-card min-height="100%" elevation="4">
-    <v-card-title>Pizza Summary</v-card-title>
-    <v-divider />
-    <v-card-text v-if="formValid">
-      <div v-show="pizza.name">Name: {{ pizza.name }}</div>
-      <div class="text-truncate" v-show="pizza.description">
+  <v-card class="pa-5">
+    <v-card-title>{{ summaryTitle }}</v-card-title>
+    <v-card-text v-if="deleteStatus === 'deletingPizza'">
+      <div>Name: {{ pizza.name }}</div>
+      <div class="text-truncate">
         Description:
         {{ pizza.description }}
       </div>
-      <div v-show="pizza.category">Category: {{ pizza.category }}</div>
+      <div>Category: {{ pizza.category }}</div>
       <v-divider />
       <div>
         <div v-for="(option, index) in pizza.options" :key="index">
           <div>Size: {{ option.size }}</div>
           <div>Price: {{ option.price }}</div>
+          <div>Times Ordered: {{ selectedPizza.times_ordered }}</div>
           <v-divider />
         </div>
       </div>
     </v-card-text>
     <v-card-text v-else>
-      <div class="text-h6">Nothing here.</div>
-      To start create a new pizza or update an existing pizza by selecting a
-      pizza from the current list of pizzas.
+      <div>Size: {{ selectedPizza.size }}</div>
+      <div>Price: {{ selectedPizza.price }}</div>
+      <div>Times Ordered: {{ selectedPizza.times_ordered }}</div>
     </v-card-text>
-    <slot name="card-actions"></slot>
+    <v-card-actions>
+      <slot name="pizza-summary-actions"></slot>
+    </v-card-actions>
   </v-card>
 </template>
 
 <script>
 export default {
   props: {
-    tab: {
-      type: Number,
-      default: 0,
+    deleteStatus: {
+      type: String,
+      default: "deletingOption",
     },
-    pizza: {
+    pizzaId: {
+      type: String,
+      default: "",
+    },
+    selectedPizza: {
       type: Object,
       default: function () {
-        return null;
+        return {};
       },
     },
   },
   computed: {
-    formValid() {
-      if (
-        this.pizza.name ||
-        this.pizza.description ||
-        this.pizza.category ||
-        this.pizza.options.length > 0
-      )
-        return true;
-      return false;
+    pizza() {
+      return this.$store.getters["product/getPizzaById"](this.pizzaId);
+    },
+    summaryTitle() {
+      return this.deleteStatus === "deletingPizza"
+        ? "Are you sure you want to delete this pizza?"
+        : "Are you sure you want to delete this option? ";
     },
   },
 };
