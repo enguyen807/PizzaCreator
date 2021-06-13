@@ -38,22 +38,20 @@
                         :categories="categories"
                       >
                         <template #pizza-form-actions>
-                          <v-card-actions>
-                            <v-btn
-                              color="blue darken-1"
-                              text
-                              @click="handleClose"
-                            >
-                              Cancel
-                            </v-btn>
-                            <v-btn
-                              color="blue darken-1"
-                              text
-                              @click="handleSaveItem"
-                            >
-                              Save
-                            </v-btn>
-                          </v-card-actions>
+                          <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="handleClose"
+                          >
+                            Cancel
+                          </v-btn>
+                          <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="handleSaveItem"
+                          >
+                            Save
+                          </v-btn>
                         </template>
                       </PizzaForm>
                     </v-dialog>

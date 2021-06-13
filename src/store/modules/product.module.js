@@ -63,17 +63,19 @@ const actions = {
   async createPizza({ commit }, payload) {
     try {
       const docId = await dbMenuRef.doc().id;
+      const { name, description, category, size, price, times_ordered } =
+        payload;
       const pizza = {
         id: docId,
-        name: payload.name,
-        description: payload.description,
-        category: payload.category,
+        name: name,
+        description: description,
+        category: category,
         options: [],
       };
       pizza.options.push({
-        size: payload.size,
-        price: +payload.price,
-        times_ordered: payload.times_ordered,
+        size: size,
+        price: +price,
+        times_ordered: times_ordered,
       });
       await dbMenuRef.doc(docId).set(pizza);
       commit("CREATE_PIZZA", pizza);
@@ -84,8 +86,9 @@ const actions = {
   },
   async deletePizza({ commit, state }, payload) {
     try {
-      const index = state.pizzas.findIndex((pza) => pza.id === payload.id);
-      await dbMenuRef.doc(payload.id).delete();
+      const { id } = payload;
+      const index = state.pizzas.findIndex((pza) => pza.id === id);
+      await dbMenuRef.doc(id).delete();
       commit("DELETE_PIZZA", index);
     } catch (error) {
       const errorMessage = error.message;
@@ -93,19 +96,19 @@ const actions = {
     }
   },
   async addOption({ commit, state }, payload) {
-    console.log(payload);
     try {
+      const { size, price, times_ordered, id } = payload;
       const pizzaOption = {
-        size: payload.size,
-        price: payload.price,
-        times_ordered: payload.times_ordered,
+        size: size,
+        price: price,
+        times_ordered: times_ordered,
       };
 
-      await dbMenuRef.doc(payload.id).update({
+      await dbMenuRef.doc(id).update({
         options: firebase.firestore.FieldValue.arrayUnion(pizzaOption),
       });
 
-      const index = state.pizzas.findIndex((pza) => pza.id === payload.id);
+      const index = state.pizzas.findIndex((pza) => pza.id === id);
 
       commit("ADD_OPTION", { index, pizzaOption });
     } catch (error) {
@@ -115,15 +118,16 @@ const actions = {
   },
   async deleteOption({ commit, state }, payload) {
     try {
+      const { size, price, times_ordered, id } = payload;
       const pizzaOption = {
-        size: payload.size,
-        price: payload.price,
-        times_ordered: payload.times_ordered,
+        size: size,
+        price: price,
+        times_ordered: times_ordered,
       };
 
-      const index = state.pizzas.findIndex((pza) => pza.id === payload.id);
+      const index = state.pizzas.findIndex((pza) => pza.id === id);
       const optionIndex = state.pizzas[index].options.findIndex(
-        (pza) => pza.size === payload.size
+        (pza) => pza.size === size
       );
 
       if (state.pizzas[index].options.length <= 1) {
@@ -131,7 +135,7 @@ const actions = {
         return;
       }
 
-      await dbMenuRef.doc(payload.id).update({
+      await dbMenuRef.doc(id).update({
         options: firebase.firestore.FieldValue.arrayRemove(pizzaOption),
       });
 

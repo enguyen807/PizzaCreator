@@ -10,6 +10,7 @@
             item-value="size"
             v-model="option.size"
             label='Size(")'
+            no-data-text="Maximum options for pizza reached."
             :rules="[(v) => !!v || 'Size is required']"
           ></v-select>
         </div>
@@ -64,8 +65,13 @@ export default {
   computed: {},
   watch: {
     price(val) {
-      console.log(val);
       this.option.price = val;
+    },
+    dialog(val) {
+      const { option, defaultOption } = this;
+      if (!val) {
+        option = defaultOption;
+      }
     },
   },
   methods: {},

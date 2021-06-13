@@ -142,7 +142,8 @@ export default {
     ...mapState("product", ["pizzas"]),
     ...mapGetters("basket", ["basketTotalCost"]),
     categories() {
-      return this.pizzas.reduce((acc, curr) => {
+      const { pizzas } = this;
+      return pizzas.reduce((acc, curr) => {
         acc[curr.category] = acc[curr.category] || [];
         acc[curr.category].push(curr);
         return acc;
@@ -151,16 +152,13 @@ export default {
   },
   methods: {
     ...mapActions("basket", ["addToBasket", "removeFromBasket"]),
-    handleAddPizzaToBasket(item, option) {
-      if (!option) {
-        const data = item;
-        this.addToBasket({ data });
-        return;
-      }
+    handleAddPizzaToBasket(item, option = null) {
+      const { name } = item;
+      const { price, size } = option;
       const data = {
-        name: item.name,
-        price: option.price,
-        size: option.size,
+        name: name,
+        price: price,
+        size: size,
         quantity: 1,
       };
       this.addToBasket({ data });

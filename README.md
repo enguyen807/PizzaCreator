@@ -42,7 +42,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### TODO
 
-Add New Option to Existing Pizza
-Update An Existing Option
--Remove Option
--Remove Pizza
+TODO
+-If all options are deleted than pizza will be deleted
+-Add property to hide/show seasonal or old pizza
+-Work on login and register forms
+-Convert to vuex
+-Add alert modules to all actions
+-Start on PizzaCreator app
